@@ -1,0 +1,595 @@
+{
+	"info": {
+		"_postman_id": "dadd4da6-11bf-4038-949a-107be36bbcfa",
+		"name": "nodus-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46861224",
+		"_collection_link": "https://gabrielcipolini.postman.co/workspace/Gabriel-Cipolini's-Workspace~07f1126e-4ba4-4aa2-8d4e-63c4c2956e95/collection/46861224-dadd4da6-11bf-4038-949a-107be36bbcfa?action=share&source=collection_link&creator=46861224"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Sign up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"user001\",\r\n    \"email\": \"u001email.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/signup",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Session",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseBody = pm.response.text();\r",
+									"\r",
+									"let jsonData = JSON.parse(responseBody);\r",
+									"let token = jsonData.token;\r",
+									"\r",
+									"pm.collectionVariables.set(\"TOKEN\", token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"u001@email.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/login",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teams",
+			"item": [
+				{
+					"name": "New Team",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"T001\",\r\n    \"description\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/teams",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Teams",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Santos FC\",\r\n    \"description\": \"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/teams",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Team",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"T04\",\r\n    \"description\": \"Time do 04\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/teams/63e9ae80-24cc-4c62-9f86-b156d59b9fa2",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"teams",
+								"63e9ae80-24cc-4c62-9f86-b156d59b9fa2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Team",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Santos FC\",\r\n    \"description\": \"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/teams/d362d694-522d-49b4-adf4-8d2faa0b38bb",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"teams",
+								"d362d694-522d-49b4-adf4-8d2faa0b38bb"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Team Members",
+			"item": [
+				{
+					"name": "New Member",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": \"27e063e6-0b93-4952-a187-38b5df289b62\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/teams/63e9ae80-24cc-4c62-9f86-b156d59b9fa2/members",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"teams",
+								"63e9ae80-24cc-4c62-9f86-b156d59b9fa2",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Members",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASEURL}}/teams/63e9ae80-24cc-4c62-9f86-b156d59b9fa2/members",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"teams",
+								"63e9ae80-24cc-4c62-9f86-b156d59b9fa2",
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Member",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/teams/63e9ae80-24cc-4c62-9f86-b156d59b9fa2/members/27e063e6-0b93-4952-a187-38b5df289b62",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"teams",
+								"63e9ae80-24cc-4c62-9f86-b156d59b9fa2",
+								"members",
+								"27e063e6-0b93-4952-a187-38b5df289b62"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "New Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Task 5\",\r\n    \"description\": \"\",\r\n    \"priority\": \"high\",\r\n    \"user_id\": \"27e063e6-0b93-4952-a187-38b5df289b62\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/teams/63e9ae80-24cc-4c62-9f86-b156d59b9fa2/tasks",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"teams",
+								"63e9ae80-24cc-4c62-9f86-b156d59b9fa2",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Tasks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/teams/63e9ae80-24cc-4c62-9f86-b156d59b9fa2/tasks",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"teams",
+								"63e9ae80-24cc-4c62-9f86-b156d59b9fa2",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Task 2\",\r\n    \"description\": \"\",\r\n    \"status\": \"canceled\",\r\n    \"priority\": \"high\",\r\n    \"assigned_to\": \"84b8a016-f444-4da9-9061-745482e10d2a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASEURL}}/teams/63e9ae80-24cc-4c62-9f86-b156d59b9fa2/tasks/0066d53a-586b-4282-9065-1ddfdf49055b",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"teams",
+								"63e9ae80-24cc-4c62-9f86-b156d59b9fa2",
+								"tasks",
+								"0066d53a-586b-4282-9065-1ddfdf49055b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Task 2\",\r\n    \"description\": \"\",\r\n    \"status\": \"completed\",\r\n    \"priority\": \"high\",\r\n    \"assigned_to\": \"580630fe-eefb-4aa4-bf31-e9f75f4ac2b9\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BASEURL}}/teams/63e9ae80-24cc-4c62-9f86-b156d59b9fa2/tasks/0066d53a-586b-4282-9065-1ddfdf49055b",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"teams",
+								"63e9ae80-24cc-4c62-9f86-b156d59b9fa2",
+								"tasks",
+								"0066d53a-586b-4282-9065-1ddfdf49055b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task History",
+			"item": [
+				{
+					"name": "List Task History",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BASEURL}}/teams/63e9ae80-24cc-4c62-9f86-b156d59b9fa2/tasks/20e2ce16-1f27-445a-bd73-a90aaa20ac37/log",
+							"host": [
+								"{{BASEURL}}"
+							],
+							"path": [
+								"teams",
+								"63e9ae80-24cc-4c62-9f86-b156d59b9fa2",
+								"tasks",
+								"20e2ce16-1f27-445a-bd73-a90aaa20ac37",
+								"log"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "TOKEN",
+			"value": ""
+		}
+	]
+}
